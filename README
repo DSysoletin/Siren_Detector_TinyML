@@ -1,0 +1,9 @@
+This is a Siren Detector TinyML version. 
+It is intended to run on ESP32-P4-WiFi6-Devkit from Waveshare.
+
+To run it, please do the following:
+1. Edit `main/siren_config.h` file, add your credentials there
+2. Activate your esp-idf environment
+3. idf.py build
+4. idf.py flash
+5. (Optional) idf.py monitor 

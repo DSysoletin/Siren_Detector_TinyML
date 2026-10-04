@@ -1,0 +1,29 @@
+# Based on ESP32-P4-Platform/examples/esp-idf/12_I2SCodec/sdkconfig.defaults
+# (CONFIG_EXAMPLE_BSP omitted - example-only)
+# esp32p4_rev3_x.defaults is appended automatically via
+# ESP32-P4-Platform/config/esp32p4_local_defaults.cmake
+
+CONFIG_IDF_TARGET="esp32p4"
+CONFIG_BOOTLOADER_LOG_LEVEL_WARN=y
+CONFIG_BOOTLOADER_LOG_LEVEL=2
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_SPEED_200M=y
+CONFIG_SPIRAM_XIP_FROM_PSRAM=y
+CONFIG_CACHE_L2_CACHE_256KB=y
+CONFIG_CACHE_L2_CACHE_LINE_128B=y
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=10240
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_VTASKLIST_INCLUDE_COREID=y
+CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+# Hosted WiFi (esp_wifi_remote/esp_hosted) + MQTT grow the app past the 1MB
+# single-app partition; use the large factory partition (1500K on 16MB flash).
+CONFIG_PARTITION_TABLE_SINGLE_APP_LARGE=y
+# Keep esp_hosted out of internal retention SRAM: its early-boot SDIO
+# transport buffers + task stacks otherwise exhaust the RETENT_RAM pool that
+# the sleep-clock-ICG REGDMA descriptors need (boot abort before app_main).
+# GDMA reaches PSRAM through the cache on the P4, so PSRAM is usable here.
+CONFIG_ESP_HOSTED_MEMPOOL_PREFER_SPIRAM=y
+CONFIG_ESP_HOSTED_DFLT_TASK_FROM_SPIRAM=y

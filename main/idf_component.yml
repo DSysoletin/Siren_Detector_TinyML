@@ -1,0 +1,29 @@
+dependencies:
+  idf:
+    version: '>=5.5'
+  waveshare/esp32_p4_platform:
+    version: 2.0.1
+  espressif/esp_codec_dev:
+    version: '>=1.5'
+  espressif/esp-dsp:
+    version: ^1.8.2
+  espressif/esp-tflite-micro:
+    version: ^1.4.1
+  lvgl/lvgl:
+    version: 9.4.*
+  espressif/mqtt: '*'
+  # Hosted WiFi: the ESP32-P4 has no radio; the Waveshare board routes WiFi
+  # through the onboard ESP32-C6 coprocessor. Version lanes follow
+  # ESP32-P4-Platform/docs/P4_C6_HOSTED_WIFI.md (tested set per IDF family).
+  espressif/esp_wifi_remote:
+    matches:
+      - if: "idf_version >= 6.0"
+        version: ">=1.6,<2.0"
+      - if: "idf_version < 6.0"
+        version: "0.14.*"
+  espressif/esp_hosted:
+    matches:
+      - if: "idf_version >= 6.0"
+        version: ">=2.12,<3.0"
+      - if: "idf_version < 6.0"
+        version: "1.4.*"
